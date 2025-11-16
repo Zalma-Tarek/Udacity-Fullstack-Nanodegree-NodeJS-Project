@@ -1,0 +1,50 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "udacity fullstack node js course project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "npx tsc",
+    "test": "npm run build && jasmine",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --config .prettierrc \"src/**/*.{ts,js}\" --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zalma-Tarek/udacity-fullstack-nanodegree-npdejs-project.git"
+  },
+  "author": "Salma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zalma-Tarek/udacity-fullstack-nanodegree-npdejs-project/issues"
+  },
+  "homepage": "https://github.com/Zalma-Tarek/udacity-fullstack-nanodegree-npdejs-project#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "jasmine": "^6.0.0-alpha.2",
+    "jasmine-spec-reporter": "^7.0.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/express": "^5.0.5",
+    "@types/jasmine": "^5.1.13",
+    "@types/node": "^24.10.1",
+    "@types/sharp": "^0.31.1",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "jiti": "^2.6.1",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4"
+  }
+}
