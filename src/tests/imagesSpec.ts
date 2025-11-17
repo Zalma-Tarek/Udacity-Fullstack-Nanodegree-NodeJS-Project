@@ -9,7 +9,7 @@ describe('Image processing endpoint', () => {
 
   it('processes image and returns 200', async () => {
     const res = await request(app).get(
-      '/api/process?filename=fjord&width=200&height=200'
+      '/api/process?filename=icelandwaterfall&width=200&height=200'
     );
     expect(res.status).toBe(200);
   });

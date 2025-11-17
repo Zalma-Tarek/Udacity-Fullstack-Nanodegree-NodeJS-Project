@@ -1,10 +1,9 @@
 import express from 'express';
-import sharp from 'sharp';
-import path from 'path';
-import { promises as fsPromises } from 'fs';
+import { processImage } from './resize-image';
 
 const resizeImage = async (
-  req: express.Request & { processedImagePath?: string } & {
+  req: express.Request & {
+    processedImagePath?: string;
     processedImageError?: string;
   },
   res: express.Response,
@@ -15,44 +14,14 @@ const resizeImage = async (
     const width = Number(req.query.width);
     const height = Number(req.query.height);
 
-    // Validate params
-    if (!filename || !width || !height) {
-      //res.status(400).send("filename, width and height are required");
-      req.processedImageError = 'filename, width and height are required';
-      return next();
-    }
-
-    const fullPath = path.join('assets/full', `${filename}.jpg`);
-    const thumbPath = path.join(
-      'assets/thumb',
-      `${filename}_${width}x${height}.jpg`
-    );
-
     try {
-      // Check if processed version already exists
-      await fsPromises.readFile(thumbPath);
-      console.log('Serving cached image');
-      req.processedImagePath = path.resolve(thumbPath);
+      req.processedImagePath = await processImage(filename, width, height);
       return next();
-    } catch {
-      // Read the original full-size image
-      const inputBuffer = await fsPromises.readFile(fullPath);
-
-      // Resize
-      const outputBuffer = await sharp(inputBuffer)
-        .resize(width, height)
-        .toFormat('jpeg')
-        .toBuffer();
-
-      // Save resized image
-      await fsPromises.writeFile(thumbPath, outputBuffer);
-
-      // Serve resized image
-      req.processedImagePath = path.resolve(thumbPath);
+    } catch (err: unknown) {
+      req.processedImageError = (err as Error).message;
       return next();
     }
-  } catch (error) {
-    console.error('Resize error:', error);
+  } catch {
     req.processedImageError = 'Image processing failed';
     return next();
   }
